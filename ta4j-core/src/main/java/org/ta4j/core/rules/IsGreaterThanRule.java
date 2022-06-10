@@ -23,9 +23,10 @@
  */
 package org.ta4j.core.rules;
 
+import java.math.BigDecimal;
+
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
-import org.ta4j.core.num.DoubleNum;
 import org.ta4j.core.num.Num;
 
 /**
@@ -43,7 +44,7 @@ public class IsGreaterThanRule extends AbstractRule {
     /**
      * The threshold
      */
-    private final DoubleNum threshold;
+    private final Num threshold;
 
     /**
      * Constructor.
@@ -51,9 +52,9 @@ public class IsGreaterThanRule extends AbstractRule {
      * @param ref      the indicator
      * @param threshold the threshold
      */
-    public IsGreaterThanRule(Indicator<Num> ref, DoubleNum threshold) {
+    public IsGreaterThanRule(Indicator<Num> ref, BigDecimal threshold) {
         this.ref = ref;
-        this.threshold = threshold;
+        this.threshold = ref.numOf(threshold);
     }
 
     @Override
