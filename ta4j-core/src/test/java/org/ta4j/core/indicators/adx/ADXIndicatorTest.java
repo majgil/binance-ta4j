@@ -62,9 +62,10 @@ public class ADXIndicatorTest extends AbstractIndicatorTest<BarSeries, Num> {
                 TestUtils.GENERAL_OFFSET);
 
         actualIndicator = getIndicator(series, 13, 8);
-        assertIndicatorEquals(xls.getIndicator(13, 8), actualIndicator);
-        assertEquals(7.3884, actualIndicator.getValue(actualIndicator.getBarSeries().getEndIndex()).doubleValue(),
-                TestUtils.GENERAL_OFFSET);
+        Indicator<Num> testIndicator = xls.getIndicator(13, 8);
+        assertIndicatorEquals(testIndicator, actualIndicator);
+        double test =  actualIndicator.getValue(actualIndicator.getBarSeries().getEndIndex()).doubleValue();
+        assertEquals(7.3884, test, TestUtils.GENERAL_OFFSET);
     }
 
 }
