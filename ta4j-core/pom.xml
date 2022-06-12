@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.trading.ta4j</groupId>
@@ -6,7 +7,6 @@
 		<version>1.0.1</version>
 	</parent>
 	<artifactId>ta4j-core</artifactId>
-
 	<name>Ta4j Core</name>
 	<description>ta4j is a Java library providing a simple API for technical analysis.</description>
 
@@ -44,6 +44,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -78,4 +79,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 </project>
