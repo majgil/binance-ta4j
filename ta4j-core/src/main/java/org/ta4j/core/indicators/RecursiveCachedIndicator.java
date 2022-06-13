@@ -39,8 +39,8 @@ import org.ta4j.core.Indicator;
 public abstract class RecursiveCachedIndicator<T> extends CachedIndicator<T> {
 
     /**
-     * The recursion threshold for which an iterative calculation is executed. TODO
-     * Should be variable (depending on the sub-indicators used in this indicator)
+     * The recursion threshold for which an iterative calculation is executed. 
+     * TODO: Should be variable (depending on the sub-indicators used in this indicator)
      */
     private static final int RECURSION_THRESHOLD = 100;
 
