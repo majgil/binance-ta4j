@@ -47,6 +47,8 @@ import ta4jexamples.loaders.CsvTradesLoader;
  * @see <a href=
  *      "http://stockcharts.com/help/doku.php?id=chart_school:trading_strategies:moving_momentum">
  *      http://stockcharts.com/help/doku.php?id=chart_school:trading_strategies:moving_momentum</a>
+ *      
+ *      https://school.stockcharts.com/doku.php?id=trading_strategies:moving_momentum
  */
 public class MovingMomentumStrategy {
 
