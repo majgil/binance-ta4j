@@ -138,6 +138,15 @@ public interface Bar extends Serializable {
         Num closePrice = getClosePrice();
         return (openPrice != null) && (closePrice != null) && openPrice.isLessThan(closePrice);
     }
+    
+    /**
+     * @return true if this is a bullish bar, false otherwise
+     */
+    default boolean isBullishOrEqual() {
+        Num openPrice = getOpenPrice();
+        Num closePrice = getClosePrice();
+        return (openPrice != null) && (closePrice != null) && openPrice.isLessThanOrEqual(closePrice);
+    }    
 
     /**
      * Adds a trade at the end of bar period.
