@@ -120,6 +120,15 @@ public interface Bar extends Serializable {
         Num closePrice = getClosePrice();
         return (openPrice != null) && (closePrice != null) && closePrice.isLessThan(openPrice);
     }
+    
+    /**
+     * @return true if this is a bearish bar, false otherwise
+     */
+    default boolean isBearishOrEqual() {
+        Num openPrice = getOpenPrice();
+        Num closePrice = getClosePrice();
+        return (openPrice != null) && (closePrice != null) && closePrice.isLessThanOrEqual(openPrice);
+    }    
 
     /**
      * @return true if this is a bullish bar, false otherwise
