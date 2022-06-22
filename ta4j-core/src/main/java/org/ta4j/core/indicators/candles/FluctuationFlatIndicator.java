@@ -10,8 +10,10 @@ import org.ta4j.core.num.Num;
  */
 public class FluctuationFlatIndicator extends CachedIndicator<Boolean> {
 
-	public final static String MODE_EQUAL_OHLC = "OHLC";
-	public final static String MODE_EQUAL_OC = "OC";
+	public final static String MODE_EQUAL_OHLC = "O=H=L=C";
+	public final static String MODE_EQUAL_OC = "O=C";
+	public final static String MODE_EQUAL_OHCgtL = "O=H=C>L";
+	public final static String MODE_EQUAL_OLCltH = "O=L=C<H";
 	
 	public String mode;
 	
