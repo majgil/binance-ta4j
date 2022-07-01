@@ -10,12 +10,12 @@ import org.ta4j.core.num.Num;
  */
 public class FluctuationFlatIndicator extends CachedIndicator<Boolean> {
 
-	public final static String MODE_EQUAL_OHLC = "O=H=L=C";
-	public final static String MODE_EQUAL_OHLC_PREV = "O=H=L=C_PREV";	
-	public final static String MODE_EQUAL_OC = "O=C";
-	public final static String MODE_EQUAL_OC_PREV = "O=C_PREV";
-	public final static String MODE_EQUAL_OHCgtL = "O=H=C>L";
-	public final static String MODE_EQUAL_OLCltH = "O=L=C<H";
+	public static final String MODE_EQUAL_OHLC = "O=H=L=C";
+	public static final String MODE_EQUAL_OHLC_PREV = "O=H=L=C_PREV";	
+	public static final String MODE_EQUAL_OC = "O=C";
+	public static final String MODE_EQUAL_OC_PREV = "O=C_PREV";
+	public static final String MODE_EQUAL_OHCgtL = "O=H=C>L";
+	public static final String MODE_EQUAL_OLCltH = "O=L=C<H";
 	
 	public String mode;
 	
@@ -57,7 +57,7 @@ public class FluctuationFlatIndicator extends CachedIndicator<Boolean> {
         	resultado = currOpenPrice.isEqual(currHighPrice) && currOpenPrice.isEqual(currLowPrice)
     			    && currOpenPrice.isEqual(currClosePrice);
         	
-        } else if (FluctuationFlatIndicator.MODE_EQUAL_OHLC.equals(this.mode)) { // Debe ser igual O=H=L=C_PREV
+        } else if (FluctuationFlatIndicator.MODE_EQUAL_OHLC_PREV.equals(this.mode)) { // Debe ser igual O=H=L=C_PREV
         	resultado = (currOpenPrice.isEqual(currHighPrice) && currHighPrice.isEqual(currLowPrice)
     			         && currLowPrice.isEqual(currClosePrice))
     			     || (currOpenPrice.isEqual(prevOpenPrice) && currClosePrice.isEqual(prevClosePrice)
