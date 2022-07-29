@@ -17,7 +17,7 @@ public class FluctuationFlatIndicator extends CachedIndicator<Boolean> {
 	public static final String MODE_EQUAL_OHCgtL = "O=H=C>L";
 	public static final String MODE_EQUAL_OLCltH = "O=L=C<H";
 	
-	public String mode;
+	private String mode;
 	
     /**
      * Constructor.
