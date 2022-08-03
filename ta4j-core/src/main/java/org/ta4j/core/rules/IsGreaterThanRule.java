@@ -72,7 +72,7 @@ public class IsGreaterThanRule extends AbstractRule {
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
         Num refVal = ref.getValue(index);
 
-        final boolean satisfied = threshold !=null && !refVal.isNaN() && refVal.isGreaterThan(threshold);
+        final boolean satisfied = threshold != null && !refVal.isNaN() && refVal.isGreaterThan(threshold);
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }
