@@ -62,6 +62,10 @@ public class MockBarSeries extends BaseBarSeries {
     public MockBarSeries(Function<Number, Num> nf) {
         super(arbitraryBars(nf));
     }
+    
+    public MockBarSeries(Function<Number, Num> nf, String type) {    	
+        super(arbitraryUpDownBars(nf));
+    }    
 
     private static List<Bar> doublesToBars(Function<Number, Num> nf, List<Double> data) {
         ArrayList<Bar> bars = new ArrayList<>();
@@ -107,4 +111,16 @@ public class MockBarSeries extends BaseBarSeries {
         }
         return bars;
     }
+    
+    private static List<Bar> arbitraryUpDownBars(Function<Number, Num> nf) {
+        ArrayList<Bar> bars = new ArrayList<>();
+        for (double i = 100d; i < 5000; i++) {
+        	if (i % 3 == 0) {
+                bars.add(new MockBar(ZonedDateTime.now().minusMinutes((long) (5001 - i)), i/3 - 10, i/3 - 20, i/3 - 2, i/3 - 30, i/3 - 4, i/3 - 5, (int) (i/3 - 6), nf));
+        	} else {
+        		bars.add(new MockBar(ZonedDateTime.now().minusMinutes((long) (5001 - i)), i, i + 1, i + 2, i + 3, i + 4, i + 5, (int) (i + 6), nf));
+        	}
+        }
+        return bars;
+    }    
 }

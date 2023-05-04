@@ -39,8 +39,6 @@ public class MoneyFlowIndexIndicator extends CachedIndicator<Num> {
 
     private final TypicalPriceIndicator typicalPriceIndicator;
 
-    
-
     private final int barCount;
 
     public MoneyFlowIndexIndicator(BarSeries series,  int barCount) {
@@ -67,7 +65,7 @@ public class MoneyFlowIndexIndicator extends CachedIndicator<Num> {
 
         for (int i = startIndex; i <= index; i++) {
         	
-        	currBar = getBarSeries().getBar(index);
+        	currBar = getBarSeries().getBar(i);
         	
         	if (currBar.isBullish()) {
         	  sumRawMoneyFlowPositive = sumRawMoneyFlowPositive.plus(typicalPriceIndicator.getValue(i).multipliedBy(getBarSeries().getBar(i).getVolume()));
@@ -76,7 +74,10 @@ public class MoneyFlowIndexIndicator extends CachedIndicator<Num> {
         	}  
         }     
         
-        ratioFlowIndex = sumRawMoneyFlowPositive.dividedBy(sumRawMoneyFlowNegative);
+        if (sumRawMoneyFlowPositive != zero() && sumRawMoneyFlowNegative != zero()) {
+            ratioFlowIndex = sumRawMoneyFlowPositive.dividedBy(sumRawMoneyFlowNegative);        	
+        }
+        
         moneyFlowIndex = numOf(100).minus(numOf(100).dividedBy(ratioFlowIndex.plus(numOf(1))));
         
         return moneyFlowIndex;
