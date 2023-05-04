@@ -67,6 +67,9 @@ public class MoneyFlowIndexIndicator extends CachedIndicator<Num> {
         	
         	currBar = getBarSeries().getBar(i);
         	
+        	// TODO - Zero volume and neither bullish nor bearish
+        	//...
+        	
         	if (currBar.isBullish()) {
         	  sumRawMoneyFlowPositive = sumRawMoneyFlowPositive.plus(typicalPriceIndicator.getValue(i).multipliedBy(getBarSeries().getBar(i).getVolume()));
         	} else {
