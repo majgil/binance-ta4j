@@ -155,6 +155,16 @@ public final class DecimalNum implements Num {
         }
         return new DecimalNum(val, precision);
     }
+    
+    /**
+     * Returns a {@code Num} version of the given {@code Num}.
+     *
+     * @param val the number
+     * @return the {@code Num}
+     */
+    public static DecimalNum valueOf(DecimalNum val) {
+        return val;
+    }    
 
     /**
      * Returns a {@code Num} version of the given {@code Number}.
