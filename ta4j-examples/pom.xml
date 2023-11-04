@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.trading.ta4j</groupId>
+        <groupId>org.ta4j</groupId>
         <artifactId>ta4j-parent</artifactId>
-        <version>1.0.1</version>
+        <version>0.16-SNAPSHOT</version>
     </parent>
     <artifactId>ta4j-examples</artifactId>
 
@@ -11,31 +11,31 @@
     <description>Provides examples that demonstrate how to use ta4j</description>
 
     <dependencies>
-        
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
-            <groupId>com.trading.ta4j</groupId>
+            <groupId>org.ta4j</groupId>
             <artifactId>ta4j-core</artifactId>
-            <version>1.0.1</version>
+            <version>0.16-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>3.9</version>
+            <version>5.7.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.0.17</version>
+            <version>1.5.3</version>
         </dependency>
 
         <dependency>
@@ -43,6 +43,11 @@
             <artifactId>logback-classic</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
+        </dependency>
     </dependencies>
 
 </project>

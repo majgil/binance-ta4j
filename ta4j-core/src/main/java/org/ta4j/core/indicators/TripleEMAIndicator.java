@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2023 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -27,10 +27,9 @@ import org.ta4j.core.Indicator;
 import org.ta4j.core.num.Num;
 
 /**
- * Triple exponential moving average indicator.
+ * Triple exponential moving average indicator (also called "TRIX").
  *
- * a.k.a TRIX
- *
+ * <p>
  * TEMA needs "3 * period - 2" of data to start producing values in contrast to
  * the period samples needed by a regular EMA.
  *
@@ -64,6 +63,11 @@ public class TripleEMAIndicator extends CachedIndicator<Num> {
     protected Num calculate(int index) {
         // trix = 3 * ( ema - emaEma ) + emaEmaEma
         return numOf(3).multipliedBy(ema.getValue(index).minus(emaEma.getValue(index))).plus(emaEmaEma.getValue(index));
+    }
+
+    @Override
+    public int getUnstableBars() {
+        return barCount;
     }
 
     @Override
