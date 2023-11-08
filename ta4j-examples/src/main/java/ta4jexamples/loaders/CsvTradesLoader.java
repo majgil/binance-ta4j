@@ -99,6 +99,7 @@ public class CsvTradesLoader {
      * @param duration  the bar duration (in seconds)
      * @param lines     the csv data returned by CSVReader.readAll()
      */
+    @SuppressWarnings("unused")
     private static void buildSeries(BarSeries series, ZonedDateTime beginTime, ZonedDateTime endTime, int duration,
             List<String[]> lines) {
 
@@ -106,7 +107,7 @@ public class CsvTradesLoader {
         ZonedDateTime barEndTime = beginTime;
         ListIterator<String[]> iterator = lines.listIterator();
         // line number of trade data
-        int i = 0;
+		int i = 0;
         do {
             // build a bar
             barEndTime = barEndTime.plus(barDuration);
