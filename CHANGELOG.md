@@ -1,6 +1,77 @@
 Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangelog.com/en/1.0.0/) from version 0.9 onwards.
 
-## 0.16 (unreleased)
+## 0.18
+
+### Breaking
+- Updated project Java JDK from 11 > 21
+- Updated Github workflows to use JDK 21
+- Extracted NumFactory as source of numbers with defined precision
+- Replaced `ZonedDateTime` with `Instant`
+- Renamed `FixedDecimalIndicator` with `FixedNumIndicator`
+- Moved `BaseBar`, `BaseBarBuilder` and `BaseBarBuilderFactory` to `bars`-package
+
+### Fixed
+- Fixed `BaseBar.toString()` to avoid `NullPointerException` if any of its property is null
+- Fixed `SMAIndicatorTest` to set the endTime of the next bar correctly
+- Fixed `SMAIndicatorMovingSeriesTest` to set the endTime of the next bar correctly
+
+### Changed
+- Updated **jfreechart** dependency in **ta4j-examples** project from 1.5.3 to 1.5.5 to resolve [CVE-2023-52070](https://ossindex.sonatype.org/vulnerability/CVE-2023-6481?component-type=maven&component-name=ch.qos.logback%2Flogback-core)
+- Updated **logback-classic** 1.4.12 > 1.5.6 to resolve [CVE-2023-6481](https://ossindex.sonatype.org/vulnerability/CVE-2023-6481?component-type=maven&component-name=ch.qos.logback%2Flogback-core)
+
+### Removed/Deprecated
+
+
+### Added
+- added `Bar.getZonedBeginTime`: the bar's begin time usable as ZonedDateTime
+- added `Bar.getZonedEndTime`: the bar's end time usable as ZonedDateTime
+- added `Bar.getSystemZonedBeginTime`: the bar's begin time converted to system time zone
+- added `Bar.getSystemZonedEndTime`: the bar's end time converted to system time zone
+- added `BarSeries.getSeriesPeriodDescriptionInSystemTimeZone`: with times printed in system's default time zone
+- added `KRIIndicator`
+- Added constructor with `amount` for  `EnterAndHoldCriterion`
+- Added constructor with `amount` for  `VersusEnterAndHoldCriterion`
+- Added `TickBarBuilder` to `bars`-package
+- Added `VolumeBarBuilder` to `bars`-package
+
+## 0.17 (released September 9, 2024)
+
+### Breaking
+- Renamed **SMAIndicatorMovingSerieTest** to **SMAIndicatorMovingSeriesTest**
+
+### Fixed
+- Fixed **ta4jexamples** project still pointing to old (0.16) version of **ta4j-core**
+- Fixed **SMAIndicatorMovingSeriesTest** test flakiness where on fast enough build machines the mock bars are created with the exact same end time
+- Fixed NaN in **DXIndicator, MinusDIIndicator, PlusDIIndicator** if there is no trend
+- Fixed look ahead bias in **RecentSwingHighIndicator** and **RecentSwingLowIndicator**
+
+### Changed
+- Implemented inner cache for **SMAIndicator**
+- **BooleanTransformIndicator** remove enum constraint in favor of more flexible `Predicate`
+- **EnterAndHoldReturnCriterion** replaced by `EnterAndHoldCriterion` to calculate the "enter and hold"-strategy of any criteria.
+- **ATRIndicator** re-use tr by passing it as a constructor param when initializing averageTrueRangeIndicator
+
+### Removed/Deprecated
+
+### Added
+- Added signal line and histogram to **MACDIndicator**
+- Added getTransactionCostModel, getHoldingCostModel, getTrades in **TradingRecord**
+- Added `Num.bigDecimalValue(DoubleNum)` to convert Num to a BigDecimal
+- Added **AverageTrueRangeTrailingStopLossRule**
+- Added **AverageTrueRangeStopLossRule**
+- Added **AverageTrueRangeStopGainRule**
+- Added **SqueezeProIndicator**
+- Added **RecentSwingHighIndicator**
+- Added **RecentSwingLowIndicator**
+- Added **KalmanFilterIndicator**
+- Added **HammerIndicator**
+- Added **InvertedHammerIndicator**
+- Added **HangingManIndicator**
+- Added **ShootingStarIndicator**
+- Added **DownTrendIndicator**
+- Added **UpTrendIndicator**
+
+## 0.16 (released May 15, 2024)
 
 ### Breaking
 - **Upgraded to Java 11**
@@ -20,8 +91,8 @@ Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangel
     - For example:
       - `BarSeriesManager manager = new BarSeriesManager(barSeries, new TradeOnCurrentCloseModel())`
       - `BarSeriesManager manager = new BarSeriesManager(barSeries, transactionCostModel, holdingCostModel, tradeExecutionModel)`
-- **BarSeriesManager** and **BacktestExecutor** moved to packge **`backtest`**
-- **BarSeries#getBeginIndex()** methode returns correct begin index for bar series with max bar count
+- **BarSeriesManager** and **BacktestExecutor** moved to package **`backtest`**
+- **BarSeries#getBeginIndex()** method returns correct begin index for bar series with max bar count
 
 ### Fixed
 - **Fixed** **SuperTrendIndicator** fixed calculation when close price is the same as the previous Super Trend indicator value
@@ -34,7 +105,7 @@ Changelog for `ta4j`, roughly following [keepachangelog.com](http://keepachangel
 - **DifferencePercentageIndicator** fixed re-calculate instance variable on every iteration
 - **ThreeWhiteSoldiersIndicator** fixed eliminated instance variable holding possible wrong value
 - **ThreeBlackCrowsIndicator** fixed eliminated instance variable holding possible wrong value
-- **TrailingStopLossRule** removed instance variable `currentStopLossLimitActivation` because it may not be alway the correct (last) value
+- **TrailingStopLossRule** removed instance variable `currentStopLossLimitActivation` because it may not be always the correct (last) value
 - sets `ClosePriceDifferenceIndicator#getUnstableBars` = `1`
 - sets `ClosePriceRatioIndicator#getUnstableBars` = `1`
 - sets `ConvergenceDivergenceIndicator#getUnstableBars` = `barCount`
@@ -458,7 +529,7 @@ behaviour of criterions (entry/exit prices can differ from corresponding close p
 
 ### VERY Important note!!!!
 
-with the release 0.10 we have changed the previous java package definition to org.ta4j or to be more specific to org.ta4j.core (the new organisation). You have to reorganize all your refernces to the new packages!
+with the release 0.10 we have changed the previous java package definition to org.ta4j or to be more specific to org.ta4j.core (the new organisation). You have to reorganize all your references to the new packages!
 In eclipse you can do this easily by selecting your sources and run "Organize imports"
 _Changed ownership of the ta4j repository_: from mdeverdelhan/ta4j (stopped the maintenance) to ta4j/ta4j (new organization)
 

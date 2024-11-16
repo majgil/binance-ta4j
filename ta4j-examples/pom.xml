@@ -6,6 +6,7 @@
         <version>1.0.2</version>
     </parent>
     <artifactId>ta4j-examples</artifactId>
+
     <name>Ta4j Examples</name>
     <description>Provides examples that demonstrate how to use ta4j</description>
 
@@ -28,13 +29,13 @@
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>5.7.1</version>
+            <version>5.9</version>
         </dependency>
 
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.5.3</version>
+            <version>1.5.5</version>
         </dependency>
 
         <dependency>
@@ -45,7 +46,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10</version>
+            <version>2.10.1</version>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
-/**
+/*
  * The MIT License (MIT)
  *
- * Copyright (c) 2017-2023 Ta4j Organization & respective
+ * Copyright (c) 2017-2024 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -360,7 +360,7 @@ public class Position implements Serializable {
         if (getEntry().isBuy()) {
             return exitPrice.dividedBy(entryPrice);
         } else {
-            Num one = entryPrice.numOf(1);
+            Num one = entryPrice.getNumFactory().one();
             return ((exitPrice.dividedBy(entryPrice).minus(one)).negate()).plus(one);
         }
     }
@@ -420,7 +420,7 @@ public class Position implements Serializable {
      * @return the Num of 0
      */
     private Num zero() {
-        return entry.getNetPrice().zero();
+        return entry.getNetPrice().getNumFactory().zero();
     }
 
     @Override

@@ -1,7 +1,7 @@
-/**
+/*
  * The MIT License (MIT)
  *
- * Copyright (c) 2017-2023 Ta4j Organization & respective
+ * Copyright (c) 2017-2024 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -231,8 +231,23 @@ public class BaseTradingRecord implements TradingRecord {
     }
 
     @Override
+    public CostModel getTransactionCostModel() {
+        return transactionCostModel;
+    }
+
+    @Override
+    public CostModel getHoldingCostModel() {
+        return holdingCostModel;
+    }
+
+    @Override
     public List<Position> getPositions() {
         return positions;
+    }
+
+    @Override
+    public List<Trade> getTrades() {
+        return trades;
     }
 
     @Override
