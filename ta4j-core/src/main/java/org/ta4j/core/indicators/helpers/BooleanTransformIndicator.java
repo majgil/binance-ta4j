@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2023 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -30,6 +30,7 @@ import org.ta4j.core.num.Num;
 /**
  * Simple boolean transform indicator.
  *
+ * <p>
  * Transforms any decimal indicator to a boolean indicator by using common
  * logical operators.
  */
@@ -111,14 +112,14 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         isZero
     }
 
-    private Indicator<Num> indicator;
-    private Num coefficient;
-    private BooleanTransformType type;
-    private BooleanTransformSimpleType simpleType;
+    private final Indicator<Num> indicator;
+    private final Num coefficient;
+    private final BooleanTransformType type;
+    private final BooleanTransformSimpleType simpleType;
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator   the indicator
      * @param coefficient the value for transformation
      * @param type        the type of the transformation
@@ -128,11 +129,12 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         this.indicator = indicator;
         this.coefficient = coefficient;
         this.type = type;
+        this.simpleType = null;
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param indicator the indicator
      * @param type      the type of the transformation
      */
@@ -140,6 +142,8 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         super(indicator);
         this.indicator = indicator;
         this.simpleType = type;
+        this.coefficient = null;
+        this.type = null;
     }
 
     @Override
@@ -184,6 +188,11 @@ public class BooleanTransformIndicator extends CachedIndicator<Boolean> {
         }
 
         return false;
+    }
+
+    @Override
+    public int getUnstableBars() {
+        return 0;
     }
 
     @Override

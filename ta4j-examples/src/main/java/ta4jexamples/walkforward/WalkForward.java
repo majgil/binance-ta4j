@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2023 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -32,11 +32,11 @@ import java.util.Map;
 
 import org.ta4j.core.AnalysisCriterion;
 import org.ta4j.core.BarSeries;
-import org.ta4j.core.BarSeriesManager;
 import org.ta4j.core.Strategy;
 import org.ta4j.core.Trade.TradeType;
+import org.ta4j.core.backtest.BarSeriesManager;
 import org.ta4j.core.TradingRecord;
-import org.ta4j.core.analysis.criteria.pnl.GrossReturnCriterion;
+import org.ta4j.core.criteria.pnl.ReturnCriterion;
 import org.ta4j.core.num.Num;
 
 import ta4jexamples.loaders.CsvTradesLoader;
@@ -50,9 +50,6 @@ import ta4jexamples.strategies.RSI2Strategy;
  *
  * @see <a href="http://en.wikipedia.org/wiki/Walk_forward_optimization">
  *      http://en.wikipedia.org/wiki/Walk_forward_optimization</a>
- * @see <a href=
- *      "http://www.futuresmag.com/2010/04/01/can-your-system-do-the-walk">
- *      http://www.futuresmag.com/2010/04/01/can-your-system-do-the-walk</a>
  */
 public class WalkForward {
 
@@ -96,11 +93,11 @@ public class WalkForward {
     }
 
     /**
-     * Returns a new bar series which is a view of a subset of the current series.
+     * Returns a new bar series which is a copy from a subset of the current series.
      *
      * The new series has begin and end indexes which correspond to the bounds of
      * the sub-set into the full series.<br>
-     * The bar of the series are shared between the original bar series and the
+     * The bars of the series are shared between the original bar series and the
      * returned one (i.e. no copy).
      *
      * @param series     the bar series to get a sub-series of
@@ -177,7 +174,7 @@ public class WalkForward {
         Map<Strategy, String> strategies = buildStrategiesMap(series);
 
         // The analysis criterion
-        AnalysisCriterion returnCriterion = new GrossReturnCriterion();
+        AnalysisCriterion returnCriterion = new ReturnCriterion();
 
         for (BarSeries slice : subseries) {
             // For each sub-series...
@@ -196,5 +193,4 @@ public class WalkForward {
             System.out.println("\t\t--> Best strategy: " + strategies.get(bestStrategy) + "\n");
         }
     }
-
 }

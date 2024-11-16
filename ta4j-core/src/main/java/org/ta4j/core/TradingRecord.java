@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2023 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -32,13 +32,13 @@ import org.ta4j.core.Trade.TradeType;
 import org.ta4j.core.num.Num;
 
 /**
- * A history/record of a trading session.
- *
- * Holds the full trading record when running a {@link Strategy strategy}. It is
- * used to:
+ * A {@code TradingRecord} holds the full history/record of a trading session
+ * when running a {@link Strategy strategy}. It can be used to:
+ * 
  * <ul>
- * <li>check to satisfaction of some trading rules (when running a strategy)
- * <li>analyze the performance of a trading strategy
+ * <li>analyze the performance of a {@link Strategy strategy}
+ * <li>check whether some {@link Rule rules} are satisfied (while running a
+ * strategy)
  * </ul>
  */
 public interface TradingRecord extends Serializable {
@@ -56,7 +56,7 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places a trade in the trading record.
-     * 
+     *
      * @param index the index to place the trade
      */
     default void operate(int index) {
@@ -65,16 +65,16 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places a trade in the trading record.
-     * 
+     *
      * @param index  the index to place the trade
-     * @param price  the trade price
+     * @param price  the trade price per asset
      * @param amount the trade amount
      */
     void operate(int index, Num price, Num amount);
 
     /**
      * Places an entry trade in the trading record.
-     * 
+     *
      * @param index the index to place the entry
      * @return true if the entry has been placed, false otherwise
      */
@@ -84,9 +84,9 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places an entry trade in the trading record.
-     * 
+     *
      * @param index  the index to place the entry
-     * @param price  the trade price
+     * @param price  the trade price per asset
      * @param amount the trade amount
      * @return true if the entry has been placed, false otherwise
      */
@@ -94,7 +94,7 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places an exit trade in the trading record.
-     * 
+     *
      * @param index the index to place the exit
      * @return true if the exit has been placed, false otherwise
      */
@@ -104,9 +104,9 @@ public interface TradingRecord extends Serializable {
 
     /**
      * Places an exit trade in the trading record.
-     * 
+     *
      * @param index  the index to place the exit
-     * @param price  the trade price
+     * @param price  the trade price per asset
      * @param amount the trade amount
      * @return true if the exit has been placed, false otherwise
      */
@@ -120,24 +120,24 @@ public interface TradingRecord extends Serializable {
     }
 
     /**
-     * @return the recorded positions
+     * @return the recorded closed positions
      */
     List<Position> getPositions();
 
     /**
-     * @return the number of recorded positions
+     * @return the number of recorded closed positions
      */
     default int getPositionCount() {
         return getPositions().size();
     }
 
     /**
-     * @return the current position
+     * @return the current (open) position
      */
     Position getCurrentPosition();
 
     /**
-     * @return the last position recorded
+     * @return the last closed position recorded
      */
     default Position getLastPosition() {
         List<Position> positions = getPositions();
@@ -167,4 +167,34 @@ public interface TradingRecord extends Serializable {
      * @return the last exit trade recorded
      */
     Trade getLastExit();
+
+    /**
+     * @return the start of the recording (included)
+     */
+    Integer getStartIndex();
+
+    /**
+     * @return the end of the recording (included)
+     */
+    Integer getEndIndex();
+
+    /**
+     * @param series the bar series, not null
+     * @return the {@link #getStartIndex()} if not null and greater than
+     *         {@link BarSeries#getBeginIndex()}, otherwise
+     *         {@link BarSeries#getBeginIndex()}
+     */
+    default int getStartIndex(BarSeries series) {
+        return getStartIndex() == null ? series.getBeginIndex() : Math.max(getStartIndex(), series.getBeginIndex());
+    }
+
+    /**
+     * @param series the bar series, not null
+     * @return the {@link #getEndIndex()} if not null and less than
+     *         {@link BarSeries#getEndIndex()}, otherwise
+     *         {@link BarSeries#getEndIndex()}
+     */
+    default int getEndIndex(BarSeries series) {
+        return getEndIndex() == null ? series.getEndIndex() : Math.min(getEndIndex(), series.getEndIndex());
+    }
 }

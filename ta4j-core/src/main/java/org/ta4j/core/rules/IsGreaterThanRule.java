@@ -56,12 +56,23 @@ public class IsGreaterThanRule extends AbstractRule {
         this.ref = ref;
         this.threshold = ref.numOf(threshold);
     }
+    
+    /**
+     * Constructor.
+     *
+     * @param ref      the indicator
+     * @param threshold the threshold
+     */
+    public IsGreaterThanRule(Indicator<Num> ref, int threshold) {
+        this.ref = ref;
+        this.threshold = ref.numOf(new BigDecimal(threshold));
+    }    
 
     @Override
     public boolean isSatisfied(int index, TradingRecord tradingRecord) {
         Num refVal = ref.getValue(index);
 
-        final boolean satisfied = threshold !=null && !refVal.isNaN() && refVal.isGreaterThan(threshold);
+        final boolean satisfied = threshold != null && !refVal.isNaN() && refVal.isGreaterThan(threshold);
         traceIsSatisfied(index, satisfied);
         return satisfied;
     }

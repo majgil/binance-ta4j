@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2017 Marc de Verdelhan, 2017-2021 Ta4j Organization & respective
+ * Copyright (c) 2017-2023 Ta4j Organization & respective
  * authors (see AUTHORS)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -23,20 +23,21 @@
  */
 package ta4jexamples.analysis;
 
+import org.ta4j.core.AnalysisCriterion.PositionFilter;
+import org.ta4j.core.backtest.BarSeriesManager;
 import org.ta4j.core.BarSeries;
-import org.ta4j.core.BarSeriesManager;
 import org.ta4j.core.Strategy;
 import org.ta4j.core.TradingRecord;
-import org.ta4j.core.analysis.criteria.AverageReturnPerBarCriterion;
-import org.ta4j.core.analysis.criteria.BuyAndHoldReturnCriterion;
-import org.ta4j.core.analysis.criteria.LinearTransactionCostCriterion;
-import org.ta4j.core.analysis.criteria.MaximumDrawdownCriterion;
-import org.ta4j.core.analysis.criteria.NumberOfBarsCriterion;
-import org.ta4j.core.analysis.criteria.NumberOfPositionsCriterion;
-import org.ta4j.core.analysis.criteria.ReturnOverMaxDrawdownCriterion;
-import org.ta4j.core.analysis.criteria.VersusBuyAndHoldCriterion;
-import org.ta4j.core.analysis.criteria.WinningPositionsRatioCriterion;
-import org.ta4j.core.analysis.criteria.pnl.GrossReturnCriterion;
+import org.ta4j.core.criteria.AverageReturnPerBarCriterion;
+import org.ta4j.core.criteria.EnterAndHoldReturnCriterion;
+import org.ta4j.core.criteria.LinearTransactionCostCriterion;
+import org.ta4j.core.criteria.MaximumDrawdownCriterion;
+import org.ta4j.core.criteria.NumberOfBarsCriterion;
+import org.ta4j.core.criteria.NumberOfPositionsCriterion;
+import org.ta4j.core.criteria.PositionsRatioCriterion;
+import org.ta4j.core.criteria.ReturnOverMaxDrawdownCriterion;
+import org.ta4j.core.criteria.VersusEnterAndHoldCriterion;
+import org.ta4j.core.criteria.pnl.ReturnCriterion;
 
 import ta4jexamples.loaders.CsvTradesLoader;
 import ta4jexamples.strategies.MovingMomentumStrategy;
@@ -62,7 +63,7 @@ public class StrategyAnalysis {
          */
 
         // Total profit
-        GrossReturnCriterion totalReturn = new GrossReturnCriterion();
+        ReturnCriterion totalReturn = new ReturnCriterion();
         System.out.println("Total return: " + totalReturn.calculate(series, tradingRecord));
         // Number of bars
         System.out.println("Number of bars: " + new NumberOfBarsCriterion().calculate(series, tradingRecord));
@@ -72,8 +73,8 @@ public class StrategyAnalysis {
         // Number of positions
         System.out.println("Number of positions: " + new NumberOfPositionsCriterion().calculate(series, tradingRecord));
         // Profitable position ratio
-        System.out.println(
-                "Winning positions ratio: " + new WinningPositionsRatioCriterion().calculate(series, tradingRecord));
+        System.out.println("Winning positions ratio: "
+                + new PositionsRatioCriterion(PositionFilter.PROFIT).calculate(series, tradingRecord));
         // Maximum drawdown
         System.out.println("Maximum drawdown: " + new MaximumDrawdownCriterion().calculate(series, tradingRecord));
         // Reward-risk ratio
@@ -83,9 +84,10 @@ public class StrategyAnalysis {
         System.out.println("Total transaction cost (from $1000): "
                 + new LinearTransactionCostCriterion(1000, 0.005).calculate(series, tradingRecord));
         // Buy-and-hold
-        System.out.println("Buy-and-hold return: " + new BuyAndHoldReturnCriterion().calculate(series, tradingRecord));
+        System.out
+                .println("Buy-and-hold return: " + new EnterAndHoldReturnCriterion().calculate(series, tradingRecord));
         // Total profit vs buy-and-hold
         System.out.println("Custom strategy return vs buy-and-hold strategy return: "
-                + new VersusBuyAndHoldCriterion(totalReturn).calculate(series, tradingRecord));
+                + new VersusEnterAndHoldCriterion(totalReturn).calculate(series, tradingRecord));
     }
 }
