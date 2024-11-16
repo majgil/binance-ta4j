@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 
 import org.ta4j.core.Indicator;
 import org.ta4j.core.TradingRecord;
+import org.ta4j.core.num.DecimalNumFactory;
 import org.ta4j.core.num.Num;
 
 /**
@@ -54,7 +55,7 @@ public class IsGreaterThanRule extends AbstractRule {
      */
     public IsGreaterThanRule(Indicator<Num> ref, BigDecimal threshold) {
         this.ref = ref;
-        this.threshold = ref.numOf(threshold);
+        this.threshold = DecimalNumFactory.getInstance().numOf(threshold);
     }
     
     /**
@@ -65,7 +66,7 @@ public class IsGreaterThanRule extends AbstractRule {
      */
     public IsGreaterThanRule(Indicator<Num> ref, int threshold) {
         this.ref = ref;
-        this.threshold = ref.numOf(new BigDecimal(threshold));
+        this.threshold = DecimalNumFactory.getInstance().numOf(new BigDecimal(threshold));
     }    
 
     @Override

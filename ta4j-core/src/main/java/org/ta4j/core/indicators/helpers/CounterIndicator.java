@@ -2,6 +2,7 @@ package org.ta4j.core.indicators.helpers;
 
 import org.ta4j.core.indicators.AbstractIndicator;
 import org.ta4j.core.indicators.CachedIndicator;
+import org.ta4j.core.num.DecimalNumFactory;
 import org.ta4j.core.num.Num;
 
 /**
@@ -24,14 +25,14 @@ public class CounterIndicator extends CachedIndicator<Num> {
     @Override
     protected Num calculate(int index) {
 
-    	Num resultado = indicator.numOf(0);
+    	Num resultado = DecimalNumFactory.getInstance().zero(); 
     	
         int end = Math.max(0, index - barCount + 1);
         
         for (int i = index - 1; i >= end; i--) {
 
         	if (indicator.getValue(i)) {
-        		resultado = resultado.plus(resultado.one());
+        		resultado = resultado.plus(DecimalNumFactory.getInstance().one());
         	}
         }
         return resultado;
